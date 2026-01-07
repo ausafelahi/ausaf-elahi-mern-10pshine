@@ -24,7 +24,7 @@ const Features = () => {
   return (
     <div className="py-6 px-4 text-center md:py-2">
       <h1 className="font-bold text-4xl mb-8 text-teal-500">
-        <h1>Feature of Nodus:</h1>
+        Feature of Nodus:
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 justify-items-center">
