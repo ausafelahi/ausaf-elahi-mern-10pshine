@@ -1,30 +1,19 @@
-import Features from "./layout/Features";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Button } from "./components/ui/button";
 import Layout from "./layout/Layout";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Home from "./pages/home/Home";
+import NoteEditor from "./pages/notes/NoteEditor";
 
 function App() {
   return (
-    <div className="min-h-screen bg-background">
-      <Layout>
-        <section className="px-4 py-16 mx-auto text-center md:py-24">
-          <div className="max-w-3xl mx-auto">
-            <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-6xl text-teal-500">
-              Welcome to Nodus!
-            </h1>
-            <p className="mb-8 text-lg text-muted-foreground">
-              Your Personal Notes Taking Application For New Ideas
-            </p>
-            <Button className="bg-teal-500 hover:bg-teal-800">
-              Get Started
-            </Button>
-          </div>
-        </section>
-        <div className="max-w-4xl mx-auto">
-          <Features />
-        </div>
-      </Layout>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/notes/:id" element={<NoteEditor />} />
+      </Routes>
+    </Layout>
   );
 }
 
