@@ -16,12 +16,18 @@ const noteSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    tags: [
-      {
-        type: String,
-        trim: true,
+    tags: {
+      type: [String],
+      default: [],
+      validate: {
+        validator: function (tags) {
+          return tags.every(
+            (tag) => typeof tag === "string" && tag.trim().length > 0,
+          );
+        },
+        message: "Tags must be non-empty strings",
       },
-    ],
+    },
     isPinned: {
       type: Boolean,
       default: false,
