@@ -122,7 +122,7 @@ const logoutUser = async (req, res) => {
     await Token.create({
       token: req.token,
       user: req.user._id,
-      expiresAt: new Date(decoded.exp * 1000), // JWT exp is in seconds
+      expiresAt: new Date(decoded.exp * 1000),
     });
 
     req.log.info(`User logged out: ${req.user.email}`);
