@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const noteRoutes = require("./routes/noteRoutes");
 const { errorHandler } = require("./middleware/errorHandler");
+const cors = require("cors");
 
 const app = express();
 
@@ -13,11 +14,32 @@ connectDB();
 
 app.use(pinoHttp({ logger }));
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
   req.log.info("Root route hit");
-  res.send("Hello, World!");
+  res.json({
+    success: true,
+    message: "Nodus API Server",
+    version: "1.0.0",
+  });
+});
+
+app.get("/health", (req, res) => {
+  req.log.info("Health check");
+  res.json({
+    success: true,
+    status: "UP",
+    timestamp: new Date().toISOString(),
+  });
 });
 
 app.use("/api/auth", authRoutes);

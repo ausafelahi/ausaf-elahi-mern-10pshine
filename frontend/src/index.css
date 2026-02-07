@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+.dark .jodit-wysiwyg {
+  color: #e5e7eb;
+  background-color: #020817;
+}
