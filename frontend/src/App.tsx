@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Layout from "./layout/Layout";
-import Home from "./pages/home/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Home from "./pages/home/Home";
 import NoteEditor from "./pages/notes/NoteEditor";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
@@ -12,7 +12,6 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   const location = useLocation();
-
   const authRoutes = [
     "/login",
     "/signup",
@@ -39,7 +38,6 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/notes/:id" element={<NoteEditor />} />
