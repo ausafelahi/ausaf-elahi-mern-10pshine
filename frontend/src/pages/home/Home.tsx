@@ -14,7 +14,7 @@ function Home() {
           <p className="mb-8 text-lg text-muted-foreground">
             Your Personal Notes Taking Application For New Ideas
           </p>
-          <Link to="/dashboard">
+          <Link to="/login">
             <Button className="bg-teal-500 hover:bg-teal-800">
               Get Started
             </Button>

@@ -1,12 +1,31 @@
+"use client";
+import { useEffect, useState } from "react";
+import api from "@/services/api";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      try {
+        const res = await api.get("/auth/me");
+        setUser(res.data.data);
+      } catch {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+    };
+    fetchMe();
+  }, []);
+
+  if (!user) return <p>Loading...</p>;
   return (
     <div className="max-w-6xl px-4 py-10 mx-auto">
       <div className="flex items-center justify-between mb-10">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <h1 className="text-xl font-bold">Welcome, {user.name}</h1>
           <p className="text-muted-foreground">
             Manage your notes and ideas in one place
           </p>

@@ -1,8 +1,11 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import api from "@/services/api";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +14,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -19,28 +23,37 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
+      toast.error("Passwords don't match!");
       return;
     }
 
-    // Add your authentication logic here
-    console.log("Sign up with:", formData);
+    try {
+      const res = await api.post("/auth/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      localStorage.setItem("token", res.data.data.token);
+      toast.success("User created successfully");
+      navigate("/login");
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-teal-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 px-4 py-12">
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
-          {/* Logo */}
           <div className="flex justify-center mb-8">
             <img src="/Nodus.png" alt="Nodus" height="auto" width="120px" />
           </div>
 
-          {/* Title */}
           <h2 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-white">
             Create Account
           </h2>
@@ -48,7 +61,6 @@ const SignUp = () => {
             Sign up to get started
           </p>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
