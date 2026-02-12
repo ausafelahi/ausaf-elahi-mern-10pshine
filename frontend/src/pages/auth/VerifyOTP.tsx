@@ -21,7 +21,6 @@ const VerifyOTP = () => {
       navigate("/forgot-password");
       return;
     }
-    // Start countdown when component mounts
     setCountdown(30);
   }, [state, navigate]);
 
