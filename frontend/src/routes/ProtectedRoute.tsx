@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
 
-const ProtectedRoute = () => {
+const ProtectedRoute: React.FC = () => {
   const token = localStorage.getItem("token");
 
   if (!token) {

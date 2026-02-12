@@ -12,7 +12,7 @@ export const fetchNotes = async (params?: {
   const response = await api.get(
     `/notes${queryString ? `?${queryString}` : ""}`,
   );
-  return response.data; // axios already wraps in .data
+  return response.data;
 };
 
 export const fetchNoteById = async (id: string) => {

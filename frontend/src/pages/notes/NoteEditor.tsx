@@ -208,7 +208,7 @@ const NoteEditor = () => {
             <JoditEditor
               ref={editorRef}
               value={content}
-              onBlur={(newContent) => setContent(newContent)}
+              onBlur={(newContent: string) => setContent(newContent)}
               onChange={() => {}}
               config={{
                 readonly: false,
