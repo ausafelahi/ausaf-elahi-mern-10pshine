@@ -10,7 +10,7 @@ export const fetchNotes = async (params?: {
 
   const queryString = queryParams.toString();
   const response = await api.get(
-    `/notes${queryString ? `?${queryString}` : ""}`,
+    queryString ? `/notes?${queryString}` : "/notes",
   );
   return response.data;
 };
